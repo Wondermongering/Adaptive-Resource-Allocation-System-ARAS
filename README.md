@@ -16,31 +16,24 @@ ARAS is a ** is a sophisticated, concurrent project management system designed t
 *   **Detailed Logging:** Comprehensive logging provides insights into project execution, resource allocation, and error occurrences.
 *   **Customizable Execution Logic:** Projects can have unique execution logic defined through lambda functions, allowing for a wide range of simulated scenarios.
 
-## Getting Started
+How It Works
+Project objects encapsulate everything needed to complete a task (blueprint, status, and priority).
+Blueprint objects describe which tools and materials you need, along with the specific logic to execute (such as welding, painting, or 3D printing).
+ProjectManager maintains a std::priority_queue of pending projects. A background thread monitors this queue:
+Pulls the highest-priority project.
+Executes it, from resource acquisition to blueprint logic.
+Triggers event listeners when the project starts, completes, or fails.
+If concurrency is your labyrinth, the code’s condition variables and thread synchronization will be your best (or worst) friend.
 
-### Prerequisites
+Future Directions
+Network Integration: Expose an API to enqueue projects remotely—an Arcane Foundry in the cloud, if you will.
+Dependency Graphs: Let projects depend on the outputs of prior tasks, weaving a grand tapestry of interconnected steps.
+Advanced Tool Calibration: Extend the adapt(...) logic to handle real-world sensor feedback, dynamically adjusting weld temperatures or print layer thickness.
+Contributing
+Pull requests, suggestions, and creative commentary are all welcome. Submit an issue if you spot any bugs or cosmic anomalies.
 
-*   A modern C++ compiler (supporting C++11 or later)
-*   Basic understanding of C++ concepts like classes, objects, templates, and concurrency
 
-### Compilation
 
-1.  Clone the repository:
-    ```bash
-    git clone [repository URL]
-    ```
-2.  Navigate to the project directory:
-    ```bash
-    cd [project directory]
-    ```
-3.  Compile the code:
-    ```bash
-    g++ -std=c++17 -pthread main.cpp -o projects
-    ```
+License
+Distributed under the MIT License. Use, modify, and distribute freely—with a dash of respect to the original conjurers.
 
-### Running the Simulation
-
-Execute the compiled program:
-
-```bash
-./projects
