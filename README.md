@@ -27,9 +27,12 @@ If concurrency is your labyrinth, the code’s condition variables and thread sy
 
 ## Future Directions
 Network Integration: Expose an API to enqueue projects remotely—an Arcane Foundry in the cloud, if you will.
+
 Dependency Graphs: Let projects depend on the outputs of prior tasks, weaving a grand tapestry of interconnected steps.
+
 Advanced Tool Calibration: Extend the adapt(...) logic to handle real-world sensor feedback, dynamically adjusting weld temperatures or print layer thickness.
 Contributing
+
 Pull requests, suggestions, and creative commentary are all welcome. Submit an issue if you spot any bugs or cosmic anomalies.
 
 
