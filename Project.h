@@ -27,5 +27,7 @@ private:
     ProjectStatus status_;
     int priority_;
     std::vector<std::shared_ptr<Tool>> acquiredTools_;
-    std::vector<std::shared_ptr<Material>> acquiredMaterials_;
+    std::vector<std::pair<std::shared_ptr<Material>, double>> acquiredMaterials_;
+
+    void releaseResources(bool success);
 };
