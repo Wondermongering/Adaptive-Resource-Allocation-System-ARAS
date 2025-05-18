@@ -116,5 +116,5 @@ Projects might represent experiments in computational biology, each requiring ce
 The concurrency layer can handle queueing of experiments with different priorities (urgent HPC tasks vs. background analyses).
  
 ## License
-Distributed under the MIT License. Use, modify, and distribute freely—with a dash of respect to the original conjurers.
+Distributed under the MIT License. See [LICENSE](LICENSE) for details. Use, modify, and distribute freely—with a dash of respect to the original conjurers.
 
