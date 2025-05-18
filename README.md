@@ -18,12 +18,12 @@ ARAS is a sophisticated, concurrent project management system designed to simula
 
 ## Building and Running
 
-To compile ARAS, use g++ or the provided Makefile.
+To compile ARAS, use the provided Makefile or compile all source files manually.
 
 ```bash
 make
 # or
-g++ -std=c++17 main.cpp -pthread -o aras
+g++ -std=c++17 Blueprint.cpp Material.cpp Project.cpp ProjectManager.cpp Tool.cpp main.cpp -pthread -o aras
 ```
 
 Run the program after compilation:
