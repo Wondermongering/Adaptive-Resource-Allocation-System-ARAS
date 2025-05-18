@@ -16,6 +16,22 @@ ARAS is a sophisticated, concurrent project management system designed to simula
 *   **Detailed Logging:** Comprehensive logging provides insights into project execution, resource allocation, and error occurrences.
 *   **Customizable Execution Logic:** Projects can have unique execution logic defined through lambda functions, allowing for a wide range of simulated scenarios.
 
+## Building and Running
+
+To compile ARAS, use g++ or the provided Makefile.
+
+```bash
+make
+# or
+g++ -std=c++17 main.cpp -pthread -o aras
+```
+
+Run the program after compilation:
+
+```bash
+./aras
+```
+
 ## How It Works
 Project objects encapsulate everything needed to complete a task (blueprint, status, and priority).
 Blueprint objects describe which tools and materials you need, along with the specific logic to execute (such as welding, painting, or 3D printing).
