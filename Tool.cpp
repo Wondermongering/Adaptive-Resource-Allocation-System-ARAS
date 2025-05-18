@@ -7,6 +7,9 @@ std::string Tool::getName() const { return name_; }
 ToolType Tool::getType() const { return type_; }
 bool Tool::isOperational() const { return operational_; }
 void Tool::breakdown() { operational_ = false; }
+void Tool::release() {
+    std::cout << "[Tool::release] Releasing tool " << name_ << "...\n";
+}
 
 void Tool::adapt(const std::map<std::string, std::string>& parameters) {
     std::cout << "[Tool::adapt] Adapting tool " << name_ << "...\n";

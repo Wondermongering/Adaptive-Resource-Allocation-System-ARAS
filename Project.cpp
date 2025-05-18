@@ -24,6 +24,7 @@ void Project::execute() {
         std::cerr << "[Project::execute] Error: Project "
                   << name_ << " does not have a valid blueprint.\n";
         status_ = ProjectStatus::FAILED;
+        releaseResources(false);
         return;
     }
 
@@ -35,6 +36,7 @@ void Project::execute() {
             std::cerr << "[Project::execute] Error: Invalid tool in blueprint for project "
                       << name_ << "\n";
             status_ = ProjectStatus::FAILED;
+            releaseResources(false);
             return;
         }
 
@@ -43,6 +45,7 @@ void Project::execute() {
             std::cerr << "[Project::execute] Error: Tool "
                       << toolPair.first->getName() << " is not operational.\n";
             status_ = ProjectStatus::FAILED;
+            releaseResources(false);
             return;
         }
 
@@ -55,6 +58,7 @@ void Project::execute() {
             std::cerr << "[Project::execute] Error: Invalid material in blueprint for project "
                       << name_ << "\n";
             status_ = ProjectStatus::FAILED;
+            releaseResources(false);
             return;
         }
 
@@ -62,12 +66,13 @@ void Project::execute() {
                   << " (Quantity: " << materialPair.second << ")\n";
         try {
             materialPair.first->consume(materialPair.second);
-            acquiredMaterials_.push_back(materialPair.first);
+            acquiredMaterials_.push_back(materialPair);
         } catch (const std::runtime_error& error) {
             std::cerr << "[Project::execute] Error: "
                       << error.what()
                       << " -> Project " << name_ << " failed.\n";
             status_ = ProjectStatus::FAILED;
+            releaseResources(false);
             return;
         }
     }
@@ -75,9 +80,30 @@ void Project::execute() {
     status_ = ProjectStatus::IN_PROGRESS;
     blueprint_->getExecutionLogic()(*this);
 
-    if (status_ != ProjectStatus::FAILED) {
+    bool success = (status_ != ProjectStatus::FAILED);
+    if (success) {
         status_ = ProjectStatus::COMPLETED;
         std::cout << "[Project::execute] Project " << name_
                   << " completed successfully.\n";
     }
+
+    releaseResources(success);
+}
+
+void Project::releaseResources(bool success) {
+    for (auto& tool : acquiredTools_) {
+        if (tool) {
+            tool->release();
+        }
+    }
+    acquiredTools_.clear();
+
+    if (!success) {
+        for (auto& materialPair : acquiredMaterials_) {
+            if (materialPair.first) {
+                materialPair.first->release(materialPair.second);
+            }
+        }
+    }
+    acquiredMaterials_.clear();
 }

@@ -11,6 +11,7 @@ public:
     ToolType getType() const;
     bool isOperational() const;
     void breakdown();
+    void release();
     void adapt(const std::map<std::string, std::string>& parameters) override;
 private:
     std::string name_;

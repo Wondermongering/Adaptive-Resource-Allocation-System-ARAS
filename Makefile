@@ -1,10 +1,12 @@
 CXX = g++
 CXXFLAGS = -std=c++17 -pthread -Wall -Wextra -O2
 
+SRCS = $(wildcard *.cpp)
+
 all: aras
 
-aras: main.cpp
-	$(CXX) $(CXXFLAGS) $< -o $@
+aras: $(SRCS)
+	$(CXX) $(CXXFLAGS) $(SRCS) -o aras
 
 clean:
 	rm -f aras

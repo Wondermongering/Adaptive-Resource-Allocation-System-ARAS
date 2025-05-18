@@ -10,6 +10,7 @@ public:
     double getQuantity() const;
     void consume(double amount);
     void replenish(double amount);
+    void release(double amount);
 private:
     std::string name_;
     MaterialType type_;
