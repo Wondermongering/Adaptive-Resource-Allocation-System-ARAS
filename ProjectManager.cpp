@@ -21,7 +21,7 @@ void ProjectManager::addProject(const Project& project) {
         std::unique_lock<std::mutex> lock(mutex_);
         projectQueue_.push(project);
     }
-    notifyListeners(ManagerEvent::PROJECT_ENQUEUED, project);
+    notifyListeners(ManagerEvent::PROJECT_ENQUEUED, &project);
     cv_.notify_one();
 }
 
@@ -46,20 +46,23 @@ void ProjectManager::processProjects() {
             projectQueue_.pop();
         }
 
-        notifyListeners(ManagerEvent::PROJECT_STARTED, currentProject);
+        notifyListeners(ManagerEvent::PROJECT_STARTED, &currentProject);
 
         currentProject.execute();
 
         if (currentProject.getStatus() == ProjectStatus::COMPLETED) {
-            notifyListeners(ManagerEvent::PROJECT_COMPLETED, currentProject);
+            notifyListeners(ManagerEvent::PROJECT_COMPLETED, &currentProject);
         } else if (currentProject.getStatus() == ProjectStatus::FAILED) {
-            notifyListeners(ManagerEvent::PROJECT_FAILED, currentProject);
+            notifyListeners(ManagerEvent::PROJECT_FAILED, &currentProject);
         }
     }
 }
 
-void ProjectManager::notifyListeners(ManagerEvent event, const Project& p) {
+void ProjectManager::notifyListeners(ManagerEvent event, const Project* p) {
+    if (!p) {
+        return;
+    }
     for (auto& listener : listeners_) {
-        listener(event, p);
+        listener(event, *p);
     }
 }

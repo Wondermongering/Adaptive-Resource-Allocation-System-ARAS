@@ -24,7 +24,7 @@ private:
     };
 
     void processProjects();
-    void notifyListeners(ManagerEvent event, const Project& p = Project("None", nullptr));
+    void notifyListeners(ManagerEvent event, const Project* p = nullptr);
 
     std::priority_queue<Project, std::vector<Project>, ProjectCompare> projectQueue_;
     std::vector<std::function<void(ManagerEvent, const Project&)>> listeners_;
